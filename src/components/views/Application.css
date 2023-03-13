@@ -1,0 +1,75 @@
+.big_box {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.small_box {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    
+}
+.zombie_sightingBox {
+    border: 1px dotted blueviolet;
+    width: 400px;
+    height: 400px;
+    gap: 30px;
+    margin: 70px;
+    padding: 30px;
+}
+
+.tradeOffers {
+    border: 1px dotted red;
+    width: 400px;
+    height: 400px;
+    gap: 30px;
+    margin: 70px;
+    padding: 30px;
+}
+
+.smallZombieBox {
+    border: 1px dotted blueviolet;
+    width: 200px;
+    height: 75px;
+    row-gap: 30px;
+    margin: 70px;
+    padding: 30px;
+}
+
+.myTown {
+    border: 1px dotted red;
+    width: 200px;
+    height: 75px;
+    row-gap: 30px;
+    margin: 70px;
+    padding: 30px;
+}
+
+.Routes {
+    border: 1px dotted blueviolet;
+    width: 200px;
+    height: 75px;
+    row-gap: 30px;
+    margin: 50px;
+    padding: 30px;
+}
+
+.TradeOfferings {
+    border: 1px dotted red;
+    width: 200px;
+    height: 75px;
+    row-gap: 30px;
+    margin: 50px;
+    padding: 30px;
+    
+}
+
+.NationalParks {
+    border: 1px dotted blueviolet;
+    width: 200px;
+    height: 75px;
+    row-gap: 30px;
+    margin: 50px;
+    padding: 30px;
+}
