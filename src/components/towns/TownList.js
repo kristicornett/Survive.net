@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getTowns } from '../ApiManager'
+import { getTowns, deleteTown } from '../ApiManager'
 import { useNavigate } from 'react-router-dom'
 import './Town.css'
 
@@ -9,13 +9,24 @@ export const TownList = () => {
 
     useEffect(
         () => {
+           refreshTowns()
+        },
+        []
+    )
+
+    const deleteTowns = (event, townId) => {
+        event.preventDefault()
+
+        deleteTown(townId)
+        .then((data) => refreshTowns())
+    }
+
+    const refreshTowns = () => {
             getTowns()
             .then((townArray) => {
                 setTowns(townArray)
             })
-        },
-        []
-    )
+    }
         return <>
         <h2>Towns</h2>
         <button type="submit" className='town__button' onClick={() => navigate('/towns/add')}> Add A Town </button>
@@ -24,7 +35,7 @@ export const TownList = () => {
                 towns.map(
                     (town) => {
                         return <section key={`town--${town.id}`}>
-                            <div className='town'>{town.name}: {town.description} {town.vacancy ? 'Homes available.' : 'No vacancy.'}</div>
+                            <div className='town'>{town.name}: {town.description} {town.vacancy ? 'Homes available.' : 'No vacancy.'}<button id='delete_town' onClick={(event) => deleteTowns(event, town.id)}>X</button></div>
                         </section>
                     }
                 )
@@ -32,3 +43,4 @@ export const TownList = () => {
         </article>
         </>
 }
+

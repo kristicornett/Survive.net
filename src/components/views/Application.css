@@ -1,3 +1,7 @@
+body {
+    background-color: greenyellow;
+}
+
 .big_box {
     display: flex;
     flex-wrap: wrap;

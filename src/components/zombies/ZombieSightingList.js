@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getTowns, getZombieSightings } from '../ApiManager'
+import { deleteZombieSighting, getTowns, getZombieSightings } from '../ApiManager'
 import { useNavigate } from 'react-router-dom'
 
 export const ZombieSighting = ({disableAddButton}) => {
@@ -10,10 +10,7 @@ export const ZombieSighting = ({disableAddButton}) => {
 
     useEffect(
         () => {
-            getZombieSightings()
-            .then((sightingArray) => {
-                setSightings(sightingArray)
-            })
+            refreshZombieSightings()
         },
         [towns]
     )
@@ -27,6 +24,21 @@ export const ZombieSighting = ({disableAddButton}) => {
         },
         []
     )
+
+    const deleteSighting = (event, sightingId) => {
+        event.preventDefault()
+
+        deleteZombieSighting(sightingId)
+        .then((data) => refreshZombieSightings())
+    }
+
+    const refreshZombieSightings = () => {
+            getZombieSightings()
+            .then((sightingArray) => {
+                setSightings(sightingArray)
+            })
+    }
+
         return <>
         <h2>Zombie Sightings</h2>
         {
@@ -42,7 +54,7 @@ export const ZombieSighting = ({disableAddButton}) => {
                 sightings.map(
                     (sighting) => {
                         return <section key={`sighting--${sighting.id}`} className='Sighting'>
-                            <div>Closest Town: {sighting?.town?.name}, Number of Zombies: {sighting.approxCount}</div>
+                            <div>Closest Town: {sighting?.town?.name}, Number of Zombies: {sighting.approxCount} Type: {sighting?.zombieSightingType?.type} Status: {sighting?.zombieSightingStatus?.status} <button id='delete_sighting' onClick={(event => deleteSighting(event, sighting.id))}>X</button> <button type="submit" className='button' onClick={() => navigate(`/zombies/${sighting.id}/status`)}>Update Status</button></div>
                         </section>
                     }
                 )

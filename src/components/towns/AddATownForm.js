@@ -28,7 +28,7 @@ export const AddATown = (props) => {
   }, [])
 
 
-  const TownSubmit = (event) => {
+  const townSubmit = (event) => {
     event.preventDefault()
 
     const newTownToSendToAPI = {
@@ -146,7 +146,7 @@ export const AddATown = (props) => {
            </label>
            </fieldset>
         <fieldset>
-          <button type="submit" onClick={(event) => TownSubmit(event)}>
+          <button type="submit" onClick={(event) => townSubmit(event)}>
             {" "}
             Submit New Town{" "}
           </button>

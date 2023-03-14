@@ -19,14 +19,39 @@ export const getTowns = () => {
             .then(response => response.json())
 }
 
+export const getTradeOffers = () => {
+    return fetch('http://localhost:8088/trades')
+            .then(response => response.json())
+}
+
 export const getZombieSightings = () => {
     return fetch('http://localhost:8088/zombieSightings?_expand=town&_expand=zombieSightingType&_expand=zombieSightingDistance&_expand=zombieSightingStatus')
+            .then(response => response.json())
+}
+
+export const getSingleZombieSighting = (sightingId) => {
+    return fetch(`http://localhost:8088/zombieSightings/${sightingId}?_expand=town&_expand=zombieSightingType&_expand=zombieSightingDistance&_expand=zombieSightingStatus&_expand=zombieSightingDistance`)
             .then(response => response.json())
 }
 
 export const getUsers = () => {
     return fetch('http://localhost:8088/users')
            .then(response => response.json())
+}
+
+export const getSupplies = () => {
+    return fetch('http://localhost:8088/supplies')
+           .then(response => response.json())
+}
+
+export const getSupplyTypes = () => {
+    return fetch('http://localhost:8088/supplyType')
+           .then(response => response.json())
+}
+
+export const getZombieSightingStatuses = () => {
+    return fetch('http://localhost:8088/zombieSightingStatuses')
+        .then(response => response.json())
 }
 
 export const createZombieSighting = (zombieSightingToSendToAPI) => {
@@ -52,10 +77,19 @@ export const updateZombieSighting = (zombieSighting) => {
         .then(response => response.json())
 }
 
-export const deleteZombieSighting = (zombieSighting) => {
-    return fetch(`http://localhost:8088/zombieSightings/${zombieSighting.id}`, {
+export const deleteZombieSighting = (zombieSightingId) => {
+    return fetch(`http://localhost:8088/zombieSightings/${zombieSightingId}`, {
         method: 'DELETE'
     })
+        .then(response => response.json())
+        
+}
+
+export const deleteTown = (townId) => {
+    return fetch(`http://localhost:8088/towns/${townId}`, {
+        method: 'DELETE'
+    })
+        .then(response => response.json())
 }
 
 export const getDistances = () => {
@@ -77,4 +111,53 @@ export const createNewTown = (newTownToSendToAPI) => {
         body: JSON.stringify(newTownToSendToAPI)
     })
         .then(response => response.json())
+}
+
+export const createNewTrade = (newTradeToSendToAPI) => {
+    return fetch('http://localhost:8088/trades', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newTradeToSendToAPI)
+    })
+        .then(response => response.json())
+}
+
+export const getStatusLogs = () => {
+    return fetch('http://localhost:8088/zombieSightingStatusLog')
+           .then(response => response.json())
+}
+
+export const getStatusLogBySighting = (sightingId) => {
+    return fetch(`http://localhost:8088/zombieSightingStatusLog?zombieSightingId=${sightingId}`)
+            .then(response => response.json())
+}
+
+export const createStatusLog = (newStatusLogToSendToAPI) => {
+    return fetch('http://localhost:8088/zombieSightingStatusLog', {
+        method: 'POST', 
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newStatusLogToSendToAPI)
+    })
+        .then(response => response.json())
+}
+
+export const updateZombieSightingStatus = (sightingId, newStatusId) => {
+    return  fetch(`http://localhost:8088/zombieSightings/${sightingId}`)
+            .then(response => response.json())
+            .then((data) => {
+                data.zombieSightingStatusId = newStatusId
+               return fetch(`http://localhost:8088/zombieSightings/${sightingId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then(response => response.json()) 
+            })
+
 }

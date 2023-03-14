@@ -44,8 +44,8 @@ export const ZombieSightingForm = (props) => {
     event.preventDefault()
 
     const zombieSightingToSendToAPI = {
-      name: surviveUserObject.id,
-      closestTownId: sighting.closestTownId,
+      name: surviveUserObject.name,
+      townId: sighting.closestTownId,
       zombieSightingDistanceId: sighting.distanceId,
       zombieSightingTypeId: sighting.sightTypeId,
       approxCount: sighting.approxCount,
